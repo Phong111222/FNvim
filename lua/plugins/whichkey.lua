@@ -21,7 +21,6 @@ return {
 				-- There's no limit to the depth of nesting
 				mode = { "n", "v" }, -- NORMAL and VISUAL mode
 
-				{ "<leader>x", "<cmd>q<cr>", desc = "Quit" }, -- no need to specify mode since it's inherited
 				{ "<C-s>", "<cmd>w<cr>", desc = "Write" },
 			},
 		})

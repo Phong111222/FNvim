@@ -47,10 +47,12 @@ return {
 				capabilities = capabilities,
 			})
 
-			map("n", "K", vim.lsp.buf.hover, { desc = "Hover to show description" })
-			map("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-			map("n", "gr", vim.lsp.buf.references, { desc = "Go to references" })
-			map("n", "ca", vim.lsp.buf.code_action, { desc = "Code action" })
+			map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
+			map("n", "gd", vim.lsp.buf.definition, { desc = "Go To Definition" })
+			map("n", "gr", vim.lsp.buf.references, { desc = "Go To References" })
+			map("n", "ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+			map("n", "gi", vim.lsp.buf.implementation, { desc = "Go To Implementation" })
+			map("n", "<leader>ra", vim.lsp.buf.rename, { desc = "Rename Variable" })
 		end,
 	},
 }
