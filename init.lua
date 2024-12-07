@@ -14,7 +14,7 @@ vim.cmd("set cmdheight=0")
 vim.opt.fillchars:append({ eob = " " })
 
 vim.opt.rtp:prepend(lazypath)
-
+vim.g.loaded_matchparen = 1 -- disable built-in MatchParen.
 require("vim-options")
 require("mapping").setup()
 require("lazy").setup("plugins")
