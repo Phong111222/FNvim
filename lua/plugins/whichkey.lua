@@ -1,6 +1,6 @@
 return {
 	"folke/which-key.nvim",
-	config = function(_, otps)
+	config = function()
 		local wk = require("which-key")
 		wk.add({
 
@@ -8,13 +8,6 @@ return {
 			{ "<leader>fn", desc = "New File", group = "File" },
 			{ "<leader>f1", hidden = true }, -- hide this keymap
 			{ "<leader>w", proxy = "<c-w>", group = "windows" }, -- proxy to window mappings
-			{
-				"<leader>b",
-				group = "buffers",
-				expand = function()
-					return require("which-key.extras").expand.buf()
-				end,
-			},
 			{
 				-- Nested mappings are allowed and can be added in any order
 				-- Most attributes can be inherited or overridden on any level

@@ -53,6 +53,7 @@ return {
 			map("n", "ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 			map("n", "gi", vim.lsp.buf.implementation, { desc = "Go To Implementation" })
 			map("n", "<leader>ra", vim.lsp.buf.rename, { desc = "Rename Variable" })
+			map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP Diagnostic" })
 		end,
 	},
 }

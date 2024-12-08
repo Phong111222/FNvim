@@ -26,7 +26,12 @@ end
 function M.setup()
 	local opts = { noremap = true, silent = true }
 	vim.api.nvim_set_keymap("i", "jk", "<ESC>", opts)
-	vim.api.nvim_set_keymap("n", "<leader>x", ":lua PromptSaveBeforeClose()<CR>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap(
+		"n",
+		"<leader>x",
+		":lua PromptSaveBeforeClose()<CR>",
+		{ noremap = true, silent = true, desc = "Close Current Buffer" }
+	)
 end
 
 return M
