@@ -16,6 +16,8 @@ vim.opt.fillchars:append({ eob = " " })
 vim.opt.rtp:prepend(lazypath)
 vim.g.loaded_matchparen = 0 -- disable built-in MatchParen.
 vim.opt.cursorline = true
+
 require("vim-options")
+require("autocmd")
 require("mapping").setup()
 require("lazy").setup("plugins")
