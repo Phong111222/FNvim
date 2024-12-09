@@ -32,6 +32,8 @@ function M.setup()
 		":lua PromptSaveBeforeClose()<CR>",
 		{ noremap = true, silent = true, desc = "Close Current Buffer" }
 	)
+	vim.keymap.set("v", ">", ">gv", { desc = "Indent and reselect" }) -- Indent and reselect
+	vim.keymap.set("v", "<", "<gv", { desc = "Unindent and reselect" }) -- Unindent and reselect
 end
 
 return M
