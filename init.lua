@@ -17,6 +17,12 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.loaded_matchparen = 0 -- disable built-in MatchParen.
 vim.opt.cursorline = true
 
+if vim.fn.has("unnamedplus") == 1 then
+	vim.opt.clipboard = "unnamedplus"
+else
+	vim.opt.clipboard = "unnamed"
+end
+
 require("vim-options")
 require("autocmd")
 require("mapping").setup()

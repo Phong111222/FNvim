@@ -33,6 +33,8 @@ function M.setup()
 		{ noremap = true, silent = true, desc = "Close Current Buffer" }
 	)
 	vim.keymap.set("n", "<leader>a", "G$vgg0", { noremap = true, silent = true, desc = "Select All" })
+	vim.keymap.set("v", ">", ">gv", { desc = "Indent and reselect" }) -- Indent and reselect
+	vim.keymap.set("v", "<", "<gv", { desc = "Unindent and reselect" }) -- Unindent and reselect
 end
 
 return M
