@@ -32,6 +32,7 @@ function M.setup()
 		":lua PromptSaveBeforeClose()<CR>",
 		{ noremap = true, silent = true, desc = "Close Current Buffer" }
 	)
+	vim.keymap.set("n", "<leader>a", "G$vgg0", { noremap = true, silent = true, desc = "Select All" })
 end
 
 return M
