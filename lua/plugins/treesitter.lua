@@ -24,6 +24,7 @@ return {
 					"svelte",
 					"tsx",
 					"lua",
+					"go",
 				},
 
 				highlight = {

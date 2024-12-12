@@ -34,17 +34,43 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			local lspconfig = require("lspconfig")
+
+			lspconfig.eslint.setup({
+				capabilities = capabilities,
+				settings = {
+					validate = { "javascript", "typescript" }, -- Enable for JS and TS files
+					lint = {
+						enable = true, -- Enable linting
+					},
+				},
+			})
+
 			lspconfig.ts_ls.setup({
 				capabilities = capabilities,
 			})
+
 			lspconfig.solargraph.setup({
 				capabilities = capabilities,
 			})
+
 			lspconfig.html.setup({
 				capabilities = capabilities,
 			})
+
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
+			})
+
+			lspconfig.gopls.setup({
+				capabilities = capabilities,
+				settings = {
+					gopls = {
+						analyses = {
+							unusedparams = true,
+						},
+						staticcheck = true,
+					},
+				},
 			})
 
 			map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
