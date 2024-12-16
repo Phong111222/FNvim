@@ -16,6 +16,9 @@ return {
 			view = {
 				adaptive_size = true,
 				preserve_window_proportions = true,
+				width = {
+					max = 70,
+				},
 			},
 			renderer = {
 				root_folder_label = false,
