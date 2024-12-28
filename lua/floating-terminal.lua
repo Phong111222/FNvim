@@ -8,6 +8,15 @@ local state = {
 	},
 }
 
+local renameBuffer = function()
+	-- Rename the terminal buffer (prompt user for the new name)
+	local new_name = vim.fn.input("Enter new terminal name: ", "terminal_" .. os.date("%Y%m%d%H%M%S"), "file")
+	if new_name ~= "" then
+		-- Rename the buffer to the new name
+		vim.cmd("file " .. "terminal:" .. new_name)
+	end
+end
+
 -- Function to create a floating window
 local function create_floating_window(opts)
 	opts = opts or {}
@@ -55,6 +64,7 @@ local toggle_terminal = function()
 		state.floating = create_floating_window({ buf = state.floating.buf })
 		if vim.bo[state.floating.buf].buftype ~= "terminal" then
 			vim.cmd.terminal()
+			renameBuffer()
 		end
 	else
 		vim.api.nvim_win_hide(state.floating.win)
