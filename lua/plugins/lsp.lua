@@ -100,6 +100,15 @@ return {
 				},
 			})
 
+			lspconfig.typos_lsp.setup({
+				filetypes = { "*" }, -- This applies typos-lsp to all file types
+				settings = {
+					typos = {
+						language = "en", -- Specify the language to check, e.g., 'en' for English
+					},
+				},
+			})
+
 			map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
 			map("n", "gd", vim.lsp.buf.definition, { desc = "Go To Definition" })
 			map("n", "gr", vim.lsp.buf.references, { desc = "Go To References" })
