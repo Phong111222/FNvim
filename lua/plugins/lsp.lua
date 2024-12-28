@@ -61,6 +61,33 @@ return {
 				capabilities = capabilities,
 			})
 
+			lspconfig.tailwindcss.setup({
+				capabilities = capabilities,
+				filetypes = {
+					"html",
+					"css",
+					"javascript",
+					"javascriptreact",
+					"typescriptreact",
+					"vue",
+					"astro",
+					"svelte",
+				},
+				root_dir = lspconfig.util.root_pattern(
+					"tailwind.config.js",
+					"tailwind.config.ts",
+					"postcss.config.js",
+					"package.json"
+				),
+				settings = {
+					tailwindCSS = {
+						experimental = {
+							classRegex = "tw`([^`]*)`",
+						},
+					},
+				},
+			})
+
 			lspconfig.gopls.setup({
 				capabilities = capabilities,
 				settings = {
