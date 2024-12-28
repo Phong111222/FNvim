@@ -23,6 +23,7 @@ else
 	vim.opt.clipboard = "unnamed"
 end
 
+require("terminal")
 require("floating-terminal")
 require("vim-options")
 require("autocmd")
