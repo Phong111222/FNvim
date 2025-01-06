@@ -3,6 +3,12 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
 		local nvimtree = require("nvim-tree")
+		vim.cmd([[
+        :hi      NvimTreeExecFile    guifg=#ffa0a0
+        :hi      NvimTreeSpecialFile guifg=#ff80ff gui=underline
+        :hi      NvimTreeSymlink     guifg=Yellow  gui=italic
+        :hi link NvimTreeImageFile   Title
+    ]])
 
 		nvimtree.setup({
 			filters = { dotfiles = false },
@@ -20,6 +26,16 @@ return {
 					max = 70,
 				},
 			},
+			diagnostics = {
+				enable = true,
+				icons = {
+					hint = "",
+					info = "",
+					warning = "",
+					error = "",
+				},
+			},
+
 			renderer = {
 				root_folder_label = false,
 				highlight_git = true,
