@@ -27,6 +27,7 @@ return {
 			require("lsp-file-operations").setup()
 		end,
 	},
+
 	{
 		"neovim/nvim-lspconfig",
 		lazy = false,
@@ -59,6 +60,14 @@ return {
 
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
+				settings = {
+					Lua = {
+						diagnostics = {
+							-- Get the language server to recognize the `vim` global
+							globals = { "vim" },
+						},
+					},
+				},
 			})
 
 			lspconfig.tailwindcss.setup({
