@@ -11,9 +11,15 @@ return {
 	},
 	{ "onsails/lspkind.nvim" },
 	{
+		"onsails/lspkind.nvim",
+	},
+	{
 		"hrsh7th/nvim-cmp",
 		config = function()
 			local cmp = require("cmp")
+
+			local lspkind = require("lspkind")
+
 			require("luasnip.loaders.from_vscode").lazy_load()
 			local lspkind = require("lspkind")
 
