@@ -11,7 +11,15 @@ return {
     ]])
 
 		nvimtree.setup({
-			filters = { dotfiles = false },
+			filters = {
+				dotfiles = false,
+				custom = { "^.git$" }, -- Exclude the .git directory but not its contents
+			},
+
+			git = {
+				ignore = false,
+			},
+
 			disable_netrw = true,
 			hijack_cursor = true,
 			sync_root_with_cwd = true,
@@ -23,7 +31,7 @@ return {
 				adaptive_size = true,
 				preserve_window_proportions = true,
 				width = {
-					max = 70,
+					max = 50,
 				},
 			},
 			diagnostics = {

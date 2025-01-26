@@ -59,6 +59,13 @@ return {
 
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
+					},
+				},
 			})
 
 			lspconfig.tailwindcss.setup({
@@ -108,6 +115,9 @@ return {
 					},
 				},
 			})
+			lspconfig.yamlls.setup({
+				capabilities = capabilities,
+			})
 
 			map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
 			map("n", "gd", vim.lsp.buf.definition, { desc = "Go To Definition" })
@@ -116,6 +126,9 @@ return {
 			map("n", "gi", vim.lsp.buf.implementation, { desc = "Go To Implementation" })
 			map("n", "<leader>ra", vim.lsp.buf.rename, { desc = "Rename Variable" })
 			map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP Diagnostic" })
+			map("n", "<leader>dw", function()
+				vim.diagnostic.setqflist({ open = true }) -- Add all workspace diagnostics to the quickfix list
+			end, { desc = "Show workspace diagnostics" })
 		end,
 	},
 }
