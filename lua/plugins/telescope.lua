@@ -5,7 +5,12 @@ return {
 		local builtin = require("telescope.builtin")
 		local map = vim.keymap.set
 
-		map("n", "<leader>ff", builtin.find_files, { desc = "telescope find files" })
+		map("n", "<leader>ff", function()
+			builtin.find_files({
+				hidden = true,
+				file_ignore_patterns = { "^./.git/", "^node_modules/" }, -- Exclude git directory
+			})
+		end, { desc = "telescope find files" })
 
 		map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
 		map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
