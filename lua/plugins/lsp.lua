@@ -27,6 +27,14 @@ return {
 			require("lsp-file-operations").setup()
 		end,
 	},
+	{
+		"MysticalDevil/inlay-hints.nvim",
+		event = "LspAttach",
+		dependencies = { "neovim/nvim-lspconfig" },
+		config = function()
+			require("inlay-hints").setup()
+		end,
+	},
 
 	{
 		"neovim/nvim-lspconfig",
@@ -48,6 +56,18 @@ return {
 
 			lspconfig.ts_ls.setup({
 				capabilities = capabilities,
+				settings = {
+					typescript = {
+						inlayHints = {
+							includeInlayParameterNameHints = "all",
+						},
+					},
+					javascript = {
+						inlayHints = {
+							includeInlayParameterNameHints = "all",
+						},
+					},
+				},
 			})
 
 			lspconfig.solargraph.setup({
@@ -125,6 +145,9 @@ return {
 				capabilities = capabilities,
 			})
 
+			lspconfig.dockerls.setup({
+				capabilities = capabilities,
+			})
 			map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
 			map("n", "gd", vim.lsp.buf.definition, { desc = "Go To Definition" })
 			map("n", "gr", vim.lsp.buf.references, { desc = "Go To References" })

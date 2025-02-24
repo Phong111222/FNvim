@@ -25,6 +25,7 @@ return {
 					"tsx",
 					"lua",
 					"go",
+					"graphql",
 				},
 
 				highlight = {
