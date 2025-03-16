@@ -35,6 +35,11 @@ return {
 			require("inlay-hints").setup()
 		end,
 	},
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
+	},
 
 	{
 		"neovim/nvim-lspconfig",
@@ -54,21 +59,41 @@ return {
 				},
 			})
 
-			lspconfig.ts_ls.setup({
-				capabilities = capabilities,
+			require("typescript-tools").setup({
 				settings = {
-					typescript = {
-						inlayHints = {
-							includeInlayParameterNameHints = "all",
-						},
+					tsserver_file_preferences = {
+						includeInlayParameterNameHints = "all",
+						includeCompletionsForModuleExports = true,
+						quotePreference = "auto",
 					},
-					javascript = {
-						inlayHints = {
-							includeInlayParameterNameHints = "all",
-						},
+					tsserver_plugins = {
+						-- for TypeScript v4.9+
+						"@styled/typescript-styled-plugin",
+						-- or for older TypeScript versions
+						-- "typescript-styled-plugin",
+					},
+					tsserver_format_options = {
+						allowIncompleteCompletions = false,
+						allowRenameOfImportPath = false,
 					},
 				},
 			})
+
+			-- lspconfig.ts_ls.setup({
+			-- 	capabilities = capabilities,
+			-- 	settings = {
+			-- 		typescript = {
+			-- 			inlayHints = {
+			-- 				includeInlayParameterNameHints = "all",
+			-- 			},
+			-- 		},
+			-- 		javascript = {
+			-- 			inlayHints = {
+			-- 				includeInlayParameterNameHints = "all",
+			-- 			},
+			-- 		},
+			-- 	},
+			-- })
 
 			lspconfig.solargraph.setup({
 				capabilities = capabilities,
@@ -148,6 +173,11 @@ return {
 			lspconfig.dockerls.setup({
 				capabilities = capabilities,
 			})
+
+			lspconfig.csharp_ls.setup({
+				capabilities = capabilities,
+			})
+
 			map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
 			map("n", "gd", vim.lsp.buf.definition, { desc = "Go To Definition" })
 			map("n", "gr", vim.lsp.buf.references, { desc = "Go To References" })
