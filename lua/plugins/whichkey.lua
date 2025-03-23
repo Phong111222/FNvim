@@ -13,8 +13,8 @@ return {
 				-- Most attributes can be inherited or overridden on any level
 				-- There's no limit to the depth of nesting
 				mode = { "n", "v" }, -- NORMAL and VISUAL mode
-
-				{ "<C-s>", "<cmd>w<cr>", desc = "Write" },
+				--
+				-- { "<C-s>", "<cmd>w<cr>", desc = "Write" },
 			},
 		})
 	end,

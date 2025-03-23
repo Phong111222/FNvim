@@ -1,0 +1,196 @@
+[
+  // Basic editor suggestions
+  {
+    "key": "alt+space",
+    "command": "editor.action.inlineSuggest.trigger"
+  },
+  {
+    "key": "alt+space",
+    "command": "editor.action.triggerSuggest",
+    "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+space",
+    "command": "-editor.action.triggerSuggest",
+    "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "cmd+i",
+    "command": "-editor.action.triggerSuggest",
+    "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+  },
+
+  // Editor Group Navigation (vim-style for split editors + Explorer switch)
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.focusLeftGroup",
+    "when": "activeEditorGroupIndex > 0"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "workbench.view.explorer",
+    "when": "activeEditorGroupIndex == 0"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusRightGroup"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusFirstEditorGroup",
+    "when": "explorerViewletFocus"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.focusBelowGroup"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.focusAboveGroup"
+  },
+
+  // Explorer Navigation and Actions
+
+  {
+    "key": "ctrl+j",
+    "command": "list.focusDown",
+    "when": "explorerViewletFocus"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "list.focusUp",
+    "when": "explorerViewletFocus"
+  },
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "explorerViewletFocus"
+  },
+  {
+    "key": "enter",
+    "command": "list.toggleExpand",
+    "when": "explorerViewletFocus && !explorerResourceIsFile"
+  },
+  {
+    "key": "enter",
+    "command": "list.select",
+    "when": "explorerViewletFocus && explorerResourceIsFile"
+  },
+
+  // Search Results Navigation
+  {
+    "key": "ctrl+j",
+    "command": "search.action.focusNextSearchResult",
+    "when": "searchViewletVisible"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "search.action.focusPreviousSearchResult",
+    "when": "searchViewletVisible"
+  },
+  {
+    "key": "enter",
+    "command": "search.action.openResult",
+    "when": "searchViewletVisible"
+  },
+
+  // Terminal Navigation
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.terminal.focus",
+    "when": "!terminalFocus && !searchViewletVisible"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminalFocus"
+  },
+
+  // Quick Open (Command Palette) Navigation
+  {
+    "key": "ctrl+f",
+    "command": "workbench.action.quickOpen"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.quickOpenSelectPrevious",
+    "when": "inQuickOpen"
+  },
+
+  // Exit Commands
+  {
+    "key": "j k",
+    "command": "workbench.action.closeQuickOpen",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "escape",
+    "command": "workbench.action.closeQuickOpen",
+    "when": "inQuickOpen || (searchViewletVisible && searchInputBoxFocus)"
+  },
+  {
+    "key": "escape",
+    "command": "workbench.view.explorer",
+    "when": "searchViewletVisible && !searchInputBoxFocus"
+  },
+  {
+    "key": "g r",
+    "command": "editor.action.referenceSearch.trigger",
+    "when": "editorHasReferenceProvider && editorTextFocus && vim.active && vim.mode == 'Normal'"
+  },
+  {
+    "key": "space e",
+    "command": "workbench.view.explorer",
+    "when": "!explorerViewletVisible && vim.mode == 'Normal' && !terminalFocus"
+  },
+  {
+    "key": "space e",
+    "command": "workbench.files.action.focusFilesExplorer",
+    "when": "explorerViewletVisible && vim.mode == 'Normal' && !terminalFocus"
+  },
+  {
+    "key": "a",
+    "command": "explorer.newFile",
+    "when": "explorerViewletFocus"
+  },
+  {
+    "key": "d",
+    "command": "deleteFile",
+    "when": "explorerViewletFocus"
+  },
+  {
+    "key": "m",
+    "command": "list.toggleSelection",
+    "when": "explorerViewletFocus"
+  },
+  {
+    "key": "j",
+    "command": "list.focusDown",
+    "when": "explorerViewletFocus && !inputFocus"
+  },
+  {
+    "key": "k",
+    "command": "list.focusUp",
+    "when": "explorerViewletFocus && !inputFocus"
+  },
+  {
+    "key": "shift+k",
+    "command": "editor.action.showHover",
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+  },
+  {
+    "key": "g g",
+    "command": "cursorTop",
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+  }
+]
