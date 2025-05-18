@@ -6,9 +6,7 @@ return {
 		priority = 1000,
 		config = function()
 			require("catppuccin").setup({
-
 				transparent_background = true,
-
 				-- optional: tweak styles here
 				styles = {
 					comments = { "italic" },

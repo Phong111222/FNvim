@@ -36,6 +36,8 @@ function M.setup()
 	vim.keymap.set("n", "<leader>a", "G$vgg0", { noremap = true, silent = true, desc = "Select All" })
 	vim.keymap.set("v", ">", ">gv", { desc = "Indent and reselect" }) -- Indent and reselect
 	vim.keymap.set("v", "<", "<gv", { desc = "Unindent and reselect" }) -- Unindent and reselect
+
+	vim.keymap.set("n", "<leader>W", ":noautocmd w<CR>", { desc = "Save without formatting" })
 end
 
 return M

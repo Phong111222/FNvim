@@ -10,9 +10,23 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		lazy = false,
-		opts = {
-			auto_install = true,
-		},
+		config = function()
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"eslint",
+					"tsserver",
+					"html",
+					"lua_ls",
+					"tailwindcss",
+					"gopls",
+					"typos_lsp",
+					"yamlls",
+					"dockerls",
+					"csharp_ls",
+				},
+				automatic_installation = true,
+			})
+		end,
 	},
 	{
 		"antosha417/nvim-lsp-file-operations",
@@ -178,9 +192,8 @@ return {
 				capabilities = capabilities,
 			})
 
-			lspconfig.graphql.setup({
-				filetypes = { "graphql", "gql" },
-				root_dir = lspconfig.util.root_pattern(".git", "package.json"),
+			lspconfig.jsonls.setup({
+				capabilities = capabilities,
 			})
 
 			map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
