@@ -178,6 +178,11 @@ return {
 				capabilities = capabilities,
 			})
 
+			lspconfig.graphql.setup({
+				filetypes = { "graphql", "gql" },
+				root_dir = lspconfig.util.root_pattern(".git", "package.json"),
+			})
+
 			map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
 			map("n", "gd", vim.lsp.buf.definition, { desc = "Go To Definition" })
 			map("n", "gr", vim.lsp.buf.references, { desc = "Go To References" })

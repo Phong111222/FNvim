@@ -4,17 +4,16 @@ return {
 	lazy = false,
 	version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
 	opts = {
-		-- add any opts here
-		-- for example
-		provider = "openai",
-		openai = {
-			endpoint = "https://api.openai.com/v1",
-			model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
+		provider = "azure",
 
-			timeout = 30000, -- timeout in milliseconds
-			temperature = 0, -- adjust if needed
-			max_tokens = 1024,
-			-- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
+		azure = {
+			endpoint = "https://azure-open-ai-developer.openai.azure.com", -- example: "https://<your-resource-name>.openai.azure.com"
+			deployment = "gpt-4o-2024-11-20", -- Azure deployment name (e.g., "gpt-4o", "my-gpt-4o-deployment")
+			api_version = "2025-01-01-preview",
+			timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+			temperature = 0,
+			max_tokens = 16384, -- Increase this to include reasoning tokens (for reasoning models)
+			reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
 		},
 	},
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
