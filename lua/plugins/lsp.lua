@@ -1,33 +1,32 @@
 local map = vim.keymap.set
 return {
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
 		config = function()
 			local mason = require("mason")
 			mason.setup()
 		end,
 	},
 	{
-		"williamboman/mason-lspconfig.nvim",
-		lazy = false,
+		"mason-org/mason-lspconfig.nvim",
+		opts = {},
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"eslint",
-					"tsserver",
+					"typos_lsp",
 					"html",
 					"lua_ls",
 					"tailwindcss",
-					"gopls",
 					"typos_lsp",
 					"yamlls",
 					"dockerls",
 					"csharp_ls",
 				},
-				automatic_installation = true,
 			})
 		end,
 	},
+
 	{
 		"antosha417/nvim-lsp-file-operations",
 		dependencies = {
@@ -39,14 +38,6 @@ return {
 		},
 		config = function()
 			require("lsp-file-operations").setup()
-		end,
-	},
-	{
-		"MysticalDevil/inlay-hints.nvim",
-		event = "LspAttach",
-		dependencies = { "neovim/nvim-lspconfig" },
-		config = function()
-			require("inlay-hints").setup()
 		end,
 	},
 	{
