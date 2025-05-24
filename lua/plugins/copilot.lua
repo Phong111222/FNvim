@@ -24,21 +24,25 @@ return {
 	},
 	{
 		"olimorris/codecompanion.nvim",
-		opts = {
-			display = {
-				window = {
-					layout = "vertical",
-					position = "left", -- Positions the chat window on the right
-					width = 0.45, -- Adjust the width of the chat window
-				},
-			},
-		},
+		opts = {},
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 		},
 		config = function(_, opts)
-			require("codecompanion").setup({
+			local codeCompanion = require("codecompanion")
+			codeCompanion.setup({
+				adapters = {
+					copilot = function()
+						return require("codecompanion.adapters").extend("copilot", {
+							schema = {
+								model = {
+									default = "claude-3.7-sonnet",
+								},
+							},
+						})
+					end,
+				},
 				display = {
 					chat = {
 						-- Change the default icons
