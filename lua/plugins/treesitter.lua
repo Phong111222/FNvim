@@ -26,6 +26,7 @@ return {
 					"lua",
 					"go",
 					"graphql",
+					"python",
 				},
 
 				highlight = {

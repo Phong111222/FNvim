@@ -22,8 +22,19 @@ return {
 					"yamlls",
 					"dockerls",
 					"csharp_ls",
+					"pyright",
 				},
 			})
+
+			-- Install Python formatters
+			local mason_registry = require("mason-registry")
+			local formatters = { "black", "isort" }
+
+			for _, formatter in ipairs(formatters) do
+				if not mason_registry.is_installed(formatter) then
+					mason_registry.get_package(formatter):install()
+				end
+			end
 		end,
 	},
 
@@ -185,6 +196,19 @@ return {
 
 			lspconfig.jsonls.setup({
 				capabilities = capabilities,
+			})
+
+			lspconfig.pyright.setup({
+				capabilities = capabilities,
+				settings = {
+					python = {
+						analysis = {
+							autoSearchPaths = true,
+							useLibraryCodeForTypes = true,
+							diagnosticMode = "workspace",
+						},
+					},
+				},
 			})
 
 			map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
