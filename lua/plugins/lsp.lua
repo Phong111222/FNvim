@@ -1,211 +1,246 @@
 local map = vim.keymap.set
 return {
-	{
-		"williamboman/mason.nvim",
-		config = function()
-			local mason = require("mason")
-			mason.setup()
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		lazy = false,
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"eslint",
-					"tsserver",
-					"html",
-					"lua_ls",
-					"tailwindcss",
-					"gopls",
-					"typos_lsp",
-					"yamlls",
-					"dockerls",
-					"csharp_ls",
-				},
-				automatic_installation = true,
-			})
-		end,
-	},
-	{
-		"antosha417/nvim-lsp-file-operations",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			-- Uncomment whichever supported plugin(s) you use
-			-- "nvim-tree/nvim-tree.lua",
-			-- "nvim-neo-tree/neo-tree.nvim",
-			-- "simonmclean/triptych.nvim"
-		},
-		config = function()
-			require("lsp-file-operations").setup()
-		end,
-	},
-	{
-		"MysticalDevil/inlay-hints.nvim",
-		event = "LspAttach",
-		dependencies = { "neovim/nvim-lspconfig" },
-		config = function()
-			require("inlay-hints").setup()
-		end,
-	},
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
-	},
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      local mason = require("mason")
+      mason.setup()
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    lazy = false,
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "eslint",
+          "typos_lsp",
+          "html",
+          "lua_ls",
+          "tailwindcss",
+          "typos_lsp",
+          "yamlls",
+          "dockerls",
+          "csharp_ls",
+          "pyright",
+        },
+        automatic_installation = true,
+      })
 
-	{
-		"neovim/nvim-lspconfig",
-		lazy = false,
-		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      -- Install Python formatters
+      -- local mason_registry = require("mason-registry")
+      -- local formatters = { "black", "isort" }
+      --
+      -- for _, formatter in ipairs(formatters) do
+      -- 	if not mason_registry.is_installed(formatter) then
+      -- 		mason_registry.get_package(formatter):install()
+      -- 	end
+      -- end
+    end,
+  },
 
-			local lspconfig = require("lspconfig")
+  {
+    "antosha417/nvim-lsp-file-operations",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- Uncomment whichever supported plugin(s) you use
+      -- "nvim-tree/nvim-tree.lua",
+      -- "nvim-neo-tree/neo-tree.nvim",
+      -- "simonmclean/triptych.nvim"
+    },
+    config = function()
+      require("lsp-file-operations").setup()
+    end,
+  },
+  {
+    "MysticalDevil/inlay-hints.nvim",
+    event = "LspAttach",
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+      require("inlay-hints").setup()
+    end,
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
 
-			lspconfig.eslint.setup({
-				capabilities = capabilities,
-				settings = {
-					validate = { "javascript", "typescript" }, -- Enable for JS and TS files
-					lint = {
-						enable = true, -- Enable linting
-					},
-				},
-			})
+  {
+    "neovim/nvim-lspconfig",
+    lazy = false,
+    config = function()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			require("typescript-tools").setup({
-				settings = {
-					tsserver_file_preferences = {
-						includeInlayParameterNameHints = "all",
-						includeCompletionsForModuleExports = true,
-						quotePreference = "auto",
-					},
-					tsserver_plugins = {
-						-- for TypeScript v4.9+
-						"@styled/typescript-styled-plugin",
-						-- or for older TypeScript versions
-						-- "typescript-styled-plugin",
-					},
-					tsserver_format_options = {
-						allowIncompleteCompletions = false,
-						allowRenameOfImportPath = false,
-					},
-				},
-			})
+      local lspconfig = require("lspconfig")
 
-			-- lspconfig.ts_ls.setup({
-			-- 	capabilities = capabilities,
-			-- 	settings = {
-			-- 		typescript = {
-			-- 			inlayHints = {
-			-- 				includeInlayParameterNameHints = "all",
-			-- 			},
-			-- 		},
-			-- 		javascript = {
-			-- 			inlayHints = {
-			-- 				includeInlayParameterNameHints = "all",
-			-- 			},
-			-- 		},
-			-- 	},
-			-- })
+      lspconfig.eslint.setup({
+        capabilities = capabilities,
+        settings = {
+          validate = { "javascript", "typescript" }, -- Enable for JS and TS files
+          lint = {
+            enable = true,                           -- Enable linting
+          },
+        },
+      })
 
-			lspconfig.solargraph.setup({
-				capabilities = capabilities,
-			})
+      require("typescript-tools").setup({
+        settings = {
+          tsserver_file_preferences = {
+            includeInlayParameterNameHints = "all",
+            includeCompletionsForModuleExports = true,
+            quotePreference = "auto",
+          },
+          tsserver_plugins = {
+            -- for TypeScript v4.9+
+            "@styled/typescript-styled-plugin",
+            -- or for older TypeScript versions
+            -- "typescript-styled-plugin",
+          },
+          tsserver_format_options = {
+            allowIncompleteCompletions = false,
+            allowRenameOfImportPath = false,
+          },
+        },
+      })
 
-			lspconfig.html.setup({
-				capabilities = capabilities,
-			})
+      -- lspconfig.ts_ls.setup({
+      -- 	capabilities = capabilities,
+      -- 	settings = {
+      -- 		typescript = {
+      -- 			inlayHints = {
+      -- 				includeInlayParameterNameHints = "all",
+      -- 			},
+      -- 		},
+      -- 		javascript = {
+      -- 			inlayHints = {
+      -- 				includeInlayParameterNameHints = "all",
+      -- 			},
+      -- 		},
+      -- 	},
+      -- })
 
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						diagnostics = {
-							-- Get the language server to recognize the `vim` global
-							globals = { "vim" },
-						},
-					},
-				},
-			})
+      lspconfig.solargraph.setup({
+        capabilities = capabilities,
+      })
 
-			lspconfig.tailwindcss.setup({
-				capabilities = capabilities,
-				filetypes = {
-					"html",
-					"css",
-					"javascript",
-					"javascriptreact",
-					"typescriptreact",
-					"vue",
-					"astro",
-					"svelte",
-				},
-				root_dir = lspconfig.util.root_pattern(
-					"tailwind.config.js",
-					"tailwind.config.ts",
-					"postcss.config.js",
-					"package.json"
-				),
-				settings = {
-					tailwindCSS = {
-						experimental = {
-							classRegex = "tw`([^`]*)`",
-						},
-					},
-				},
-			})
+      lspconfig.html.setup({
+        capabilities = capabilities,
+      })
 
-			lspconfig.gopls.setup({
-				capabilities = capabilities,
-				settings = {
-					gopls = {
-						analyses = {
-							unusedparams = true,
-						},
-						staticcheck = true,
-					},
-				},
-			})
+      lspconfig.lua_ls.setup({
+        settings = {
+          Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using
+              version = 'LuaJIT',
+            },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = { 'vim' },
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = vim.api.nvim_get_runtime_file("", true),
+              checkThirdParty = false, -- Disable third-party checking
+            },
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+      })
 
-			lspconfig.typos_lsp.setup({
-				filetypes = { "*" }, -- This applies typos-lsp to all file types
-				settings = {
-					typos = {
-						language = "en", -- Specify the language to check, e.g., 'en' for English
-					},
-				},
-			})
-			lspconfig.yamlls.setup({
-				capabilities = capabilities,
-			})
+      lspconfig.tailwindcss.setup({
+        capabilities = capabilities,
+        filetypes = {
+          "html",
+          "css",
+          "javascript",
+          "javascriptreact",
+          "typescriptreact",
+          "vue",
+          "astro",
+          "svelte",
+        },
+        root_dir = lspconfig.util.root_pattern(
+          "tailwind.config.js",
+          "tailwind.config.ts",
+          "postcss.config.js",
+          "package.json"
+        ),
+        settings = {
+          tailwindCSS = {
+            experimental = {
+              classRegex = "tw`([^`]*)`",
+            },
+          },
+        },
+      })
 
-			lspconfig.yamlls.setup({
-				capabilities = capabilities,
-			})
+      lspconfig.gopls.setup({
+        capabilities = capabilities,
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+            },
+            staticcheck = true,
+          },
+        },
+      })
 
-			lspconfig.dockerls.setup({
-				capabilities = capabilities,
-			})
+      lspconfig.typos_lsp.setup({
+        filetypes = { "*" }, -- This applies typos-lsp to all file types
+        settings = {
+          typos = {
+            language = "en", -- Specify the language to check, e.g., 'en' for English
+          },
+        },
+      })
+      lspconfig.yamlls.setup({
+        capabilities = capabilities,
+      })
 
-			lspconfig.csharp_ls.setup({
-				capabilities = capabilities,
-			})
+      lspconfig.yamlls.setup({
+        capabilities = capabilities,
+      })
 
-			lspconfig.jsonls.setup({
-				capabilities = capabilities,
-			})
+      lspconfig.dockerls.setup({
+        capabilities = capabilities,
+      })
 
-			map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
-			map("n", "gd", vim.lsp.buf.definition, { desc = "Go To Definition" })
-			map("n", "gr", vim.lsp.buf.references, { desc = "Go To References" })
-			map("n", "ca", vim.lsp.buf.code_action, { desc = "Code Action" })
-			map("n", "gi", vim.lsp.buf.implementation, { desc = "Go To Implementation" })
-			map("n", "<leader>ra", vim.lsp.buf.rename, { desc = "Rename Variable" })
-			map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP Diagnostic" })
-			map("n", "<leader>dw", function()
-				vim.diagnostic.setqflist({ open = true }) -- Add all workspace diagnostics to the quickfix list
-			end, { desc = "Show workspace diagnostics" })
-		end,
-	},
+      lspconfig.csharp_ls.setup({
+        capabilities = capabilities,
+      })
+
+      lspconfig.jsonls.setup({
+        capabilities = capabilities,
+      })
+
+      lspconfig.pyright.setup({
+        capabilities = capabilities,
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = "workspace",
+            },
+          },
+        },
+      })
+
+      map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
+      map("n", "gd", vim.lsp.buf.definition, { desc = "Go To Definition" })
+      map("n", "gr", vim.lsp.buf.references, { desc = "Go To References" })
+      map("n", "ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+      map("n", "gi", vim.lsp.buf.implementation, { desc = "Go To Implementation" })
+      map("n", "<leader>ra", vim.lsp.buf.rename, { desc = "Rename Variable" })
+      map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP Diagnostic" })
+      map("n", "<leader>dw", function()
+        vim.diagnostic.setqflist({ open = true }) -- Add all workspace diagnostics to the quickfix list
+      end, { desc = "Show workspace diagnostics" })
+    end,
+  },
 }

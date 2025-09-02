@@ -25,19 +25,23 @@ end
 
 function M.setup()
 	local opts = { noremap = true, silent = true }
+	local map = vim.keymap.set
 	vim.api.nvim_set_keymap("i", "jk", "<ESC>", opts)
-	vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", opts)
+	map("t", "<esc><esc>", "<c-\\><c-n>", opts)
 	vim.api.nvim_set_keymap(
 		"n",
 		"<leader>x",
 		":lua PromptSaveBeforeClose()<CR>",
 		{ noremap = true, silent = true, desc = "Close Current Buffer" }
 	)
-	vim.keymap.set("n", "<leader>a", "G$vgg0", { noremap = true, silent = true, desc = "Select All" })
-	vim.keymap.set("v", ">", ">gv", { desc = "Indent and reselect" }) -- Indent and reselect
-	vim.keymap.set("v", "<", "<gv", { desc = "Unindent and reselect" }) -- Unindent and reselect
+	map("n", "<leader>a", "G$vgg0", { noremap = true, silent = true, desc = "Select All" })
+	map("v", ">", ">gv", { desc = "Indent and reselect" }) -- Indent and reselect
+	map("v", "<", "<gv", { desc = "Unindent and reselect" }) -- Unindent and reselect
 
-	vim.keymap.set("n", "<leader>W", ":noautocmd w<CR>", { desc = "Save without formatting" })
+	map("n", "<leader>W", ":noautocmd w<CR>", { desc = "Save without formatting" })
+	map("v", "J", ":m '>+1<CR>gv=gv", opts)
+	map("v", "K", ":m '>-2<CR>gv=gv", opts)
+	map("v", "<leader>r", '"hy:%s/<C-r>h//g<Left><Left>', { noremap = true, silent = true, desc = "Replace Selection" })
 end
 
 return M
