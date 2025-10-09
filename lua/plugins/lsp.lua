@@ -125,6 +125,44 @@ return {
         end
       end
 
+      -- Configure diagnostics to show inline like Error Lens
+      vim.diagnostic.config({
+        virtual_text = {
+          prefix = "●",
+          source = "if_many", -- Show source if multiple LSP servers
+          spacing = 4,
+          format = function(diagnostic)
+            -- Format diagnostic message to show source and message
+            if diagnostic.source then
+              return string.format("[%s] %s", diagnostic.source, diagnostic.message)
+            end
+            return diagnostic.message
+          end,
+        },
+        signs = true,
+        underline = true,
+        update_in_insert = false,
+        severity_sort = true,
+        float = {
+          border = "rounded",
+          source = "always",
+          header = "",
+          prefix = "",
+        },
+      })
+
+      -- Define diagnostic signs
+      local signs = {
+        { name = "DiagnosticSignError", text = "" },
+        { name = "DiagnosticSignWarn", text = "" },
+        { name = "DiagnosticSignHint", text = "" },
+        { name = "DiagnosticSignInfo", text = "" },
+      }
+
+      for _, sign in ipairs(signs) do
+        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+      end
+
       -- Enable native LSP completion when a client attaches
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
