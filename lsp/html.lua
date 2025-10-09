@@ -1,0 +1,2 @@
+-- HTML LSP configuration
+return {}

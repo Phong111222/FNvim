@@ -1,0 +1,2 @@
+-- Docker LSP configuration
+return {}

@@ -1,0 +1,2 @@
+-- YAML LSP configuration
+return {}

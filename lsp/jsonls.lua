@@ -1,0 +1,2 @@
+-- JSON LSP configuration
+return {}
