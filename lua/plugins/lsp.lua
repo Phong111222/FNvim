@@ -23,13 +23,14 @@ return {
           "dockerls",
           "csharp_ls",
           "pyright",
+          "terraformls",
         },
         automatic_installation = true,
       })
 
-      -- Install Python formatters
+      -- Install formatters
       local mason_registry = require("mason-registry")
-      local formatters = { "black", "isort" }
+      local formatters = { "black", "isort", "prettierd", "prettier", "stylua" }
 
       for _, formatter in ipairs(formatters) do
         if not mason_registry.is_installed(formatter) then
@@ -52,35 +53,6 @@ return {
       require("lsp-file-operations").setup()
     end,
   },
-  -- {
-  --   "MysticalDevil/inlay-hints.nvim",
-  --   event = "LspAttach",
-  --   dependencies = { "neovim/nvim-lspconfig" },
-  --   config = function()
-  --     require("inlay-hints").setup()
-  --   end,
-  -- },
-  -- TypeScript tools disabled in favor of native ts_ls
-  -- {
-  --   "pmizio/typescript-tools.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  --   config = function()
-  --     require("typescript-tools").setup({
-  --       settings = {
-  --         tsserver_file_preferences = {
-  --           quotePreference = "auto",
-  --         },
-  --         tsserver_plugins = {
-  --           "@styled/typescript-styled-plugin",
-  --         },
-  --         tsserver_format_options = {
-  --           allowIncompleteCompletions = false,
-  --           allowRenameOfImportPath = false,
-  --         },
-  --       },
-  --     })
-  --   end,
-  -- },
 
   {
     "neovim/nvim-lspconfig",
@@ -104,6 +76,7 @@ return {
         "csharp_ls",
         "jsonls",
         "solargraph",
+        "terraformls",
       }
 
       -- Register all LSP configs using vim.lsp.config()
@@ -154,9 +127,9 @@ return {
       -- Define diagnostic signs
       local signs = {
         { name = "DiagnosticSignError", text = "" },
-        { name = "DiagnosticSignWarn", text = "" },
-        { name = "DiagnosticSignHint", text = "" },
-        { name = "DiagnosticSignInfo", text = "" },
+        { name = "DiagnosticSignWarn",  text = "" },
+        { name = "DiagnosticSignHint",  text = "" },
+        { name = "DiagnosticSignInfo",  text = "" },
       }
 
       for _, sign in ipairs(signs) do
@@ -196,6 +169,11 @@ return {
       map("n", "grr", vim.lsp.buf.references, { desc = "LSP References (0.11 default)" })
       map("n", "gri", vim.lsp.buf.implementation, { desc = "LSP Implementation (0.11 default)" })
       map("n", "gra", vim.lsp.buf.code_action, { desc = "LSP Code Action (0.11 default)" })
+
+      -- Inlay hints toggle keybinding
+      map("n", "<leader>ih", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+      end, { desc = "Toggle Inlay Hints" })
 
       -- LSP folding support (new in 0.11) - disabled by default to avoid auto-folding
       -- Uncomment the lines below to enable LSP-based folding
