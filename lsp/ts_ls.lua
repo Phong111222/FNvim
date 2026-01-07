@@ -4,13 +4,21 @@ return {
   -- ts_ls handles type checking and language features
   -- ESLint handles code style and linting rules
   on_attach = function(client, bufnr)
-    -- Enable inlay hints for TypeScript/JavaScript
+    -- Inlay hints are disabled by default (toggle with <leader>ih)
     if client.server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
     end
   end,
   settings = {
     typescript = {
+      -- Enable code lens for reference counts
+      referencesCodeLens = {
+        enabled = true,
+        showOnAllFunctions = true,
+      },
+      implementationsCodeLens = {
+        enabled = true,
+      },
       inlayHints = {
         includeInlayParameterNameHints = "all",
         includeInlayFunctionParameterTypeHints = true,
@@ -25,6 +33,14 @@ return {
       },
     },
     javascript = {
+      -- Enable code lens for reference counts
+      referencesCodeLens = {
+        enabled = true,
+        showOnAllFunctions = true,
+      },
+      implementationsCodeLens = {
+        enabled = true,
+      },
       inlayHints = {
         includeInlayParameterNameHints = "all",
 

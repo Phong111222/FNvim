@@ -16,6 +16,7 @@ return {
           "eslint",
           "typos_lsp",
           "html",
+          "cssls",
           "lua_ls",
           "ts_ls",
           "tailwindcss",
@@ -68,6 +69,7 @@ return {
         "ts_ls", -- Native TypeScript/JavaScript LSP (alternative to typescript-tools)
         "eslint",
         "tailwindcss",
+        "cssls",
         "gopls",
         "typos_lsp",
         "html",
@@ -136,6 +138,34 @@ return {
         vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
       end
 
+      -- Override code lens display to customize the text
+      local codelens_ns = vim.api.nvim_create_namespace("custom_codelens")
+
+      -- Store original display handler
+      local original_codelens_display = vim.lsp.codelens.display
+
+      -- Custom display that filters unresolved text
+      vim.lsp.codelens.display = function(lenses, bufnr, client_id)
+        -- Filter out lenses that haven't resolved yet
+        local resolved_lenses = {}
+        for _, lens in ipairs(lenses or {}) do
+          -- Only show lenses that have a command (meaning they're resolved)
+          if lens.command and lens.command.title then
+            -- Customize the display text here if needed
+            local title = lens.command.title
+            -- Only show if it contains actual reference count (not "unresolved")
+            if not title:match("unresolved") and not title:match("Unresolved") then
+              table.insert(resolved_lenses, lens)
+            end
+          end
+        end
+
+        -- Only display if we have resolved lenses
+        if #resolved_lenses > 0 then
+          original_codelens_display(resolved_lenses, bufnr, client_id)
+        end
+      end
+
       -- Enable native LSP completion when a client attaches
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
@@ -148,6 +178,26 @@ return {
               end,
             })
           end
+
+          -- Enable code lens (reference counts) by default
+          if client.supports_method("textDocument/codeLens") then
+            -- Initial refresh with delay to allow LSP to be ready
+            vim.defer_fn(function()
+              if vim.api.nvim_buf_is_valid(args.buf) then
+                vim.lsp.codelens.refresh({ bufnr = args.buf })
+              end
+            end, 1000)
+
+            -- Auto-refresh code lens on buffer events
+            vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "CursorHold" }, {
+              buffer = args.buf,
+              group = vim.api.nvim_create_augroup("LspCodeLens_" .. args.buf, { clear = true }),
+              callback = function()
+                vim.lsp.codelens.refresh({ bufnr = args.buf })
+              end,
+              desc = "Refresh code lens (filtered)",
+            })
+          end
         end,
       })
 
@@ -155,7 +205,9 @@ return {
       -- Your custom keybindings
       map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
       map("n", "gd", vim.lsp.buf.definition, { desc = "Go To Definition" })
-      map("n", "gr", vim.lsp.buf.references, { desc = "Go To References" })
+      map("n", "gr", function()
+        require("telescope.builtin").lsp_references()
+      end, { desc = "Go To References (Telescope)" })
       map("n", "ca", vim.lsp.buf.code_action, { desc = "Code Action" })
       map("n", "gi", vim.lsp.buf.implementation, { desc = "Go To Implementation" })
       map("n", "<leader>ra", vim.lsp.buf.rename, { desc = "Rename Variable" })
