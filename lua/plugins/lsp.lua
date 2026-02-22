@@ -166,21 +166,17 @@ return {
         end
       end
 
-      -- Enable native LSP completion when a client attaches
+      -- LspAttach autocmd for code lens
       vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("LspAttachConfig", { clear = true }),
         callback = function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client and client.supports_method("textDocument/completion") then
-            vim.lsp.completion.enable(true, client.id, args.buf, {
-              convert = function(item)
-                -- Customize completion item transformation if needed
-                return item
-              end,
-            })
+          if not client then
+            return
           end
 
           -- Enable code lens (reference counts) by default
-          if client.supports_method("textDocument/codeLens") then
+          if client:supports_method("textDocument/codeLens") then
             -- Initial refresh with delay to allow LSP to be ready
             vim.defer_fn(function()
               if vim.api.nvim_buf_is_valid(args.buf) then
