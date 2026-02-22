@@ -34,7 +34,6 @@ return {
 				return {
 					timeout_ms = 1500, -- Optimized: prettierd is fast
 					lsp_fallback = true, -- Use LSP formatting if conform fails
-					async = true, -- Non-blocking for better UX
 				}
 			end,
 			-- Notify on format errors

@@ -1,6 +1,25 @@
 return {
 	{
+		"antosha417/nvim-lsp-file-operations",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			-- Uncomment whichever supported plugin(s) you use
+			"nvim-tree/nvim-tree.lua",
+			-- "nvim-neo-tree/neo-tree.nvim",
+			-- "simonmclean/triptych.nvim"
+		},
+		config = function()
+			require("lsp-file-operations").setup()
+		end,
+	},
+	{
 		"hrsh7th/cmp-nvim-lsp",
+		config = function()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			vim.lsp.config("*", {
+				capabilities = capabilities,
+			})
+		end,
 	},
 	{
 		"L3MON4D3/LuaSnip",

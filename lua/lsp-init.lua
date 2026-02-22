@@ -1,5 +1,3 @@
-local map = vim.eymap.set
-
 local lspArr = {
 	"lua_ls",
 	"ts_ls",
@@ -15,6 +13,10 @@ local lspArr = {
 	"pyright",
 	"terraformls",
 }
+
+vim.diagnostic.config({
+	virtual_text = {},
+})
 
 for _, lsp in ipairs(lspArr) do
 	vim.lsp.enable(lsp)

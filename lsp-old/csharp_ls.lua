@@ -1,2 +1,0 @@
--- C# LSP configuration
-return {}
