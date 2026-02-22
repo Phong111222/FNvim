@@ -24,6 +24,7 @@ else
 end
 
 require("terminal")
+require("lsp-init")
 require("floating-terminal")
 require("vim-options")
 require("autocmd")
