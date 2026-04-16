@@ -23,6 +23,27 @@ function PromptSaveBeforeClose()
 	end
 end
 
+local claude_pane_id = nil
+
+function OpenClaudeCodeForDirectoryWithTmux()
+	local current_dir = vim.fn.getcwd()
+
+	if claude_pane_id then
+		local exists = vim.fn.system("tmux display-message -t " .. claude_pane_id .. ' -p "#{pane_id}" 2>/dev/null')
+		if exists:match("%S") then
+			-- pane is visible, just kill it
+			vim.fn.system("tmux kill-pane -t " .. claude_pane_id)
+			claude_pane_id = nil
+			return
+		end
+	end
+
+	-- open new pane
+	local pane_id =
+		vim.fn.system(string.format('tmux split-window -h -l 30%% -c "%s" -P -F "#{pane_id}" "claude -r"', current_dir))
+	claude_pane_id = pane_id:gsub("%s+", "")
+end
+
 function M.setup()
 	local opts = { noremap = true, silent = true }
 	local map = vim.keymap.set
@@ -50,13 +71,15 @@ function M.setup()
 	map("n", "gr", function()
 		require("telescope.builtin").lsp_references()
 	end, { desc = "Go To References (Telescope)" })
-	map("n", "ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+	map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 	map("n", "gi", vim.lsp.buf.implementation, { desc = "Go To Implementation" })
 	map("n", "<leader>ra", vim.lsp.buf.rename, { desc = "Rename Variable" })
 	map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP Diagnostic" })
 	map("n", "<leader>dw", function()
 		vim.diagnostic.setqflist({ open = true }) -- Add all workspace diagnostics to the quickfix list
 	end, { desc = "Show workspace diagnostics" })
+
+	vim.keymap.set("n", "<leader>cc", OpenClaudeCodeForDirectoryWithTmux, { desc = "Toggle Claude Code pane" })
 
 	-- Neovim 0.11 default keybindings (alternative ways to access same features)
 	map("n", "grn", vim.lsp.buf.rename, { desc = "LSP Rename (0.11 default)" })

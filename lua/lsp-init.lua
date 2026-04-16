@@ -2,6 +2,7 @@ local lspArr = {
 	"lua_ls",
 	"ts_ls",
 	"csharp_ls",
+	"omnisharp",
 	"tailwindcss",
 	"cssls",
 	"jsonls",

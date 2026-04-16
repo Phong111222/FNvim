@@ -14,6 +14,7 @@ return {
 				"yamlls",
 				"dockerls",
 				"csharp_ls",
+				"omnisharp",
 				"pyright",
 				"terraformls",
 			},
