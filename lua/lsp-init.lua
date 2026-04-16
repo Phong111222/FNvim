@@ -10,7 +10,7 @@ local lspArr = {
 	"typos_lsp",
 	"html",
 	"yamlls",
-	"docerls",
+	"dockerls",
 	"pyright",
 	"terraformls",
 }
