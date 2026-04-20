@@ -5,39 +5,40 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
     build = ":TSUpdate",
 
     config = function()
-      local treesitter = require("nvim-treesitter.configs")
-
       require("nvim-ts-autotag").setup()
 
-      treesitter.setup({
-        auto_install = true,
-        ensure_installed = {
-          "luadoc",
-          "printf",
-          "vim",
-          "vimdoc",
-          "typescript",
-          "javascript",
-          "html",
-          "vue",
-          "svelte",
-          "tsx",
-          "lua",
-          "go",
-          "graphql",
-          "python",
-        },
+      require("nvim-treesitter").install({
+        "luadoc",
+        "printf",
+        "vim",
+        "vimdoc",
+        "typescript",
+        "javascript",
+        "html",
+        "vue",
+        "svelte",
+        "tsx",
+        "lua",
+        "go",
+        "graphql",
+        "python",
+        "json",
+        "markdown",
+        "markdown_inline",
+      })
 
-        highlight = {
-          enable = true,
-          use_languagetree = true,
-        },
-
-        indent = { enable = true },
-        -- autotag = { enable = true },
+      -- Neovim 0.12: enable treesitter highlighting for all filetypes with a parser
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(ev)
+          if vim.treesitter.language.add(ev.match) then
+            vim.treesitter.start(ev.buf)
+          end
+        end,
       })
     end,
   },

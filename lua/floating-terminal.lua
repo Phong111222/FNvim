@@ -47,6 +47,13 @@ local function create_floating_window(opts)
 	-- Create the floating window
 	local win = vim.api.nvim_open_win(buf, true, win_config)
 
+	-- Make the floating window background transparent
+	vim.api.nvim_set_option_value(
+		"winhl",
+		"Normal:Normal,NormalFloat:Normal,FloatBorder:FloatTermBorder",
+		{ win = win }
+	)
+
 	return { buf = buf, win = win }
 end
 
