@@ -66,7 +66,9 @@ function M.setup()
 
 	-- LSP keybindings (keeping your custom bindings + new Neovim 0.11 defaults)
 	-- Your custom keybindings
-	map("n", "K", vim.lsp.buf.hover, { desc = "Hover To Show Description" })
+	map("n", "K", function()
+		vim.lsp.buf.hover({ border = "rounded" })
+	end, { desc = "Hover To Show Description" })
 	map("n", "gd", vim.lsp.buf.definition, { desc = "Go To Definition" })
 	map("n", "gr", function()
 		require("telescope.builtin").lsp_references()

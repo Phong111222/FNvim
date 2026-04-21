@@ -1,6 +1,6 @@
 local lspArr = {
 	"lua_ls",
-	"ts_ls",
+	"vtsls",
 	"csharp_ls",
 	"omnisharp",
 	"tailwindcss",
@@ -17,8 +17,11 @@ local lspArr = {
 
 vim.diagnostic.config({
 	virtual_text = {},
+	float = { border = "rounded" },
 })
 
 for _, lsp in ipairs(lspArr) do
 	vim.lsp.enable(lsp)
 end
+
+vim.lsp.enable("ts_ls", false)
