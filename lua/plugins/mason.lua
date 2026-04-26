@@ -15,7 +15,7 @@ return {
 				"dockerls",
 				"csharp_ls",
 				"omnisharp",
-				"pyright",
+				"basedpyright",
 				"terraformls",
 			},
 			automatic_installation = true,

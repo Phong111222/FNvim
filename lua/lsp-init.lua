@@ -11,7 +11,7 @@ local lspArr = {
 	"html",
 	"yamlls",
 	"dockerls",
-	"pyright",
+	"basedpyright",
 	"terraformls",
 }
 
