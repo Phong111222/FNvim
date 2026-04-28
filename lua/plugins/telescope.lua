@@ -27,6 +27,10 @@ return {
 		map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "telescope git status" })
 		map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
 
+		map("n", "<leader>fG", function()
+			require("telescope-pickers").live_grep_globs()
+		end, { desc = "telescope live grep (with globs)" })
+
 		require("telescope").setup({
 			defaults = {
 				prompt_prefix = "   ",
