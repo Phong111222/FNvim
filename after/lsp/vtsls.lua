@@ -15,6 +15,15 @@ return {
           enableServerSideFuzzyMatch = true,
         },
       },
+      tsserver = {
+        globalPlugins = {
+          {
+            name = "typescript-plugin-css-modules",
+            location = vim.fn.getcwd() .. "/node_modules/typescript-plugin-css-modules",
+            enableForWorkspaceTypeScriptVersions = true,
+          },
+        },
+      },
     },
     typescript = {
       preferences = {

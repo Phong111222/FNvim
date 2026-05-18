@@ -30,6 +30,8 @@ return {
         "json",
         "markdown",
         "markdown_inline",
+        "css",
+        "scss",
       })
 
       -- Neovim 0.12: enable treesitter highlighting for all filetypes with a parser

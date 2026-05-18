@@ -12,7 +12,23 @@ return {
 			})
 		end, { desc = "telescope find files" })
 
+		map("n", "<leader>fF", function()
+			builtin.find_files({
+				hidden = true,
+				no_ignore = true,
+				file_ignore_patterns = { "^./.git/", "^node_modules/" },
+			})
+		end, { desc = "telescope find files (incl. gitignored)" })
+
 		map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
+
+		map("n", "<leader>fW", function()
+			builtin.live_grep({
+				additional_args = function()
+					return { "--no-ignore", "--hidden", "--glob", "!.git/" }
+				end,
+			})
+		end, { desc = "telescope live grep (incl. gitignored)" })
 		map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
 		map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
 		map("n", "<leader>ma", "<cmd>Telescope marks<CR>", { desc = "telescope find marks" })
