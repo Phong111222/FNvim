@@ -7,6 +7,9 @@ return {
 		require("colorizer").setup({
 			filetypes = {
 				"*",
+				-- Avoid noisy matches in plain text/markdown
+				"!markdown",
+				"!text",
 				css = { tailwind = true, css = true, css_fn = true },
 				scss = { tailwind = true, css = true, css_fn = true },
 				html = { tailwind = true, css = true },
@@ -16,9 +19,6 @@ return {
 				typescriptreact = { tailwind = true },
 				vue = { tailwind = true, css = true },
 				svelte = { tailwind = true, css = true },
-				-- Avoid noisy matches in plain text/markdown
-				["!markdown"] = true,
-				["!text"] = true,
 			},
 			user_default_options = {
 				RGB = true,        -- #RGB
