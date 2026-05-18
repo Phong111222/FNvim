@@ -75,7 +75,7 @@ return {
 			diagnostics = {
 				enable = true,
 				icons = {
-					hint = "",
+					hint = "󰌶",
 					info = "",
 					warning = "",
 					error = "",
