@@ -15,23 +15,15 @@ The configuration follows a modular structure:
 - `lua/mapping.lua` - Custom key mappings and buffer management functions
 - `lua/autocmd.lua` - Auto-commands for cursor styling based on vim modes
 - `lua/terminal.lua` & `lua/floating-terminal.lua` - Terminal integration
-- `lua/plugins/claude-code.lua` - Claude Code plugin configuration
 - `lua/plugins/` - Individual plugin configurations
 - `lsp/` - Modular LSP server configurations (Neovim 0.11+ native approach)
 
 ## Key Bindings
 
 - Leader key: `<Space>`
-- `<leader>cc` - Toggle Claude Code
-- `<leader>cf` - Focus Claude Code
-- `<leader>ar` - Resume Claude Code session
-- `<leader>cC` - Continue Claude Code session
-- `<leader>cb` - Add current buffer to Claude Code
-- `<leader>cs` - Send selection to Claude Code (visual mode)
-- `<leader>ca` - Accept Claude Code diff
-- `<leader>cd` - Deny Claude Code diff
 - `<leader>x` - Smart buffer close with save prompt
 - `<leader>a` - Select all text
+- `<leader>H…` - herdr-nvim annotations (`Hc` comment, `Hl` list, `Hs` send, `HS` submit, `Hi` ref)
 - `<leader>W` - Save without auto-formatting
 - `jk` in insert mode - Escape to normal mode
 - `<Esc><Esc>` in terminal - Exit terminal mode
@@ -85,7 +77,7 @@ Uses Lazy.nvim for plugin management. Key plugins include:
 - **UI**: catppuccin theme, lualine, telescope
 - **Editing**: treesitter (syntax highlighting, indentation), nvim-surround, autoclose
 - **Formatting**: conform.nvim
-- **AI**: copilot.lua, codecompanion.nvim, claudecode.nvim
+- **AI**: copilot.lua, codecompanion.nvim, herdr-nvim (annotations to Herdr agents, `<leader>H` prefix)
 
 ## Development Workflow
 
@@ -104,12 +96,3 @@ Uses Lazy.nvim for plugin management. Key plugins include:
 - **Parsers**: lua, luadoc, vim, vimdoc, typescript, javascript, html, vue, svelte, tsx, go, graphql, python
 - **Features**: Syntax highlighting, indentation, auto-tag (HTML/JSX)
 - **Update**: `:TSUpdate` to update all parsers
-
-## Claude Code Integration
-
-The claudecode.nvim plugin provides seamless integration with Claude Code, offering features like:
-- Toggle Claude Code interface (`<leader>cc`)
-- Focus management (`<leader>cf`)
-- Session resuming and continuation
-- Buffer and selection sharing
-- Diff management for code suggestions
